@@ -9,14 +9,6 @@ package de.felix.kitchenmemories.business;
  *
  * @author Felix Thomas
  */
-class NoSuchRecipeException extends Exception {
-
-    public NoSuchRecipeException(String msg) {
-        super(msg);
-    }
+public class IngredientService {
     
-    public NoSuchRecipeException()
-    {
-        super("Recipe doesn't exist");
-    }
 }

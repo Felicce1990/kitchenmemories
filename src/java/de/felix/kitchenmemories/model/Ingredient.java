@@ -2,6 +2,7 @@
 package de.felix.kitchenmemories.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 
 @Entity
@@ -22,11 +24,14 @@ public class Ingredient implements Serializable {
     public static final String FIND_BY_NAME = "Ingredient.findByName";
     
     
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
     private String name;
+    
+    @OneToMany(mappedBy = "ingredient")
+    private List<Ingredient_Recipe> recipes;
 
     
     public Ingredient()
@@ -35,6 +40,14 @@ public class Ingredient implements Serializable {
 
     public Ingredient(String name) {
         this.name = name;
+    }
+
+    public List<Ingredient_Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<Ingredient_Recipe> recipes) {
+        this.recipes = recipes;
     }
 
     public String getName() {

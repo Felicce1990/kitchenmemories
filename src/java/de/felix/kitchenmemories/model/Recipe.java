@@ -31,7 +31,22 @@ public class Recipe implements Serializable {
     private String name;
     private String description;
 
-
+    @OneToMany(mappedBy = "recipe")
+    private List<Ingredient_Recipe> ingredients;
+    
+    public void addIngredient(Ingredient i, double amount, String unit)
+    {
+        Ingredient_Recipe ir = new Ingredient_Recipe();
+        ir.setIngredient(i);
+        ir.setRecipe(this);
+        ir.setIngredientId(i.getId());
+        ir.setRecipeId(this.getId());
+        ir.setAmount(amount);
+        ir.setUnit(unit);
+        
+        this.ingredients.add(ir);
+        i.getRecipes().add(ir);
+    }
 
 
     public String getDescription() {

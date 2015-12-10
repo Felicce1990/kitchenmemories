@@ -20,6 +20,7 @@ public class MenuController implements Serializable
         items = new LinkedList<>();
         items.add("Rezept finden");
         items.add("Rezepte verwalten");
+        items.add("Zutaten verwalten");
     }
 
     public String show(String item)
@@ -30,6 +31,8 @@ public class MenuController implements Serializable
                 return "findRecipe.xhtml";
             case "Rezepte verwalten":
                 return "manageRecipe.xhtml";
+            case "Zutaten verwalten":
+                return "manageIngredient.xhtml";
         }
         return "index.xhtml";
     }
