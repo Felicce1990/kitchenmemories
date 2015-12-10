@@ -31,25 +31,8 @@ public class Recipe implements Serializable {
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Ingredient> ingredients = new LinkedList<Ingredient>();
-    
-    private static final String[] UNITS = {
-        "Milligramm",
-        "Gramm",
-        "Kilogramm",
-        "Milliliter",
-        "Liter",
-        "Stück",
-        "Becher",
-        "Dose"
-    };
-    
-    public void add(Ingredient ingredient)
-    {
-        ingredient.setParent(this);
-        ingredients.add(ingredient);
-    }
+
+
 
     public String getDescription() {
         return description;
@@ -58,32 +41,6 @@ public class Recipe implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public int getSize()
-    {
-        return ingredients.size();
-    }
-    
-    public boolean isEmpty()
-    {
-        return ingredients.isEmpty();
-    }
-    
-    public void clear()
-    {
-        ingredients.clear();
-    }
-    
-    public String[] getUnits()
-    {
-        return UNITS;
-    }
-    
-    public void remove(Ingredient ingredient)
-    {
-        ingredients.remove(ingredient);
-    }
-    
     
     public String getName() {
         return name;
@@ -91,14 +48,6 @@ public class Recipe implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Ingredient> getAllIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
     }
     
     public Long getId() {
@@ -131,7 +80,7 @@ public class Recipe implements Serializable {
 
     @Override
     public String toString() {
-        return "Recipe [" + id + "]: " + getSize() + " ingredients: " + getAllIngredients();
+        return "Recipe [" + id + "]: " + getName() + ", : " + getDescription();
     }
     
 }

@@ -1,7 +1,6 @@
 
 package de.felix.kitchenmemories.business;
 
-import de.felix.kitchenmemories.model.Ingredient;
 import de.felix.kitchenmemories.model.Recipe;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -32,21 +31,6 @@ public class RecipeService {
     public Recipe find(Object id)
     {
         return em.find(Recipe.class, id);
-    }
-    
-    public Recipe addIngredient(Recipe recipe, String name, double amount, String unit)
-    {
-        recipe = em.merge(recipe);
-        Ingredient ingredient = new Ingredient(name, amount, unit);
-        recipe.add(ingredient);
-        return recipe;
-    }
-    
-    public Recipe removeIngredient(Recipe recipe, Ingredient ingredient)
-    {
-        recipe = em.merge(recipe);
-        recipe.remove(ingredient);
-        return recipe;
     }
     
     public Recipe findByName (String name) throws NoSuchRecipeException

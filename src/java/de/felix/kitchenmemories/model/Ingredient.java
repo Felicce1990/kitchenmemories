@@ -7,43 +7,34 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = Ingredient.FIND_ALL, query = "select i from Ingredient i"),
+    @NamedQuery(name = Ingredient.FIND_BY_NAME, query = "select i from Ingredient i where i.name=:name")
+})
 public class Ingredient implements Serializable {
 
+    public static final String FIND_ALL = "Ingredient.findAll";
+    public static final String FIND_BY_NAME = "Ingredient.findByName";
+    
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
     private String name;
-    private double amount;
-    
-    @ManyToOne(optional = false)
-    private Recipe parent;
-    
-    private String unit; 
-    
+
     
     public Ingredient()
     {
     }
 
-    public Ingredient(String name, double amount, String unit) {
+    public Ingredient(String name) {
         this.name = name;
-        this.amount = amount;
-        this.unit = unit;
-    }
-    
-    
-    
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
     }
 
     public String getName() {
@@ -53,23 +44,6 @@ public class Ingredient implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public Recipe getParent() {
-        return parent;
-    }
-
-    public void setParent(Recipe parent) {
-        this.parent = parent;
-    }
-    
     public Long getId() {
         return id;
     }
@@ -100,7 +74,7 @@ public class Ingredient implements Serializable {
 
     @Override
     public String toString() {
-        return "Ingredient[" + id + ", " + amount + " " + unit + " " + name + " ]";
+        return "Ingredient[" + id + ", " + name + " ]";
     }
     
 }
