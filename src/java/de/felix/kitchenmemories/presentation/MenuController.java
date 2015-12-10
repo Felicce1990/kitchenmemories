@@ -1,6 +1,7 @@
 
 package de.felix.kitchenmemories.presentation;
 
+import de.felix.kitchenmemories.model.Menu;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,40 +13,40 @@ import javax.inject.Named;
 @SessionScoped
 public class MenuController implements Serializable
 {
-    private String active;
-    private List<String> items;
+    
+    private List<Menu> items;
+
     
     public MenuController() 
     {
         items = new LinkedList<>();
-        items.add("Rezept finden");
-        items.add("Rezepte verwalten");
-        items.add("Zutaten verwalten");
+        items.add(new Menu("Rezept finden", "findRecipe.xhtml", false));
+        items.add(new Menu("Rezepte verwalten", "manageRecipe.xhtml", false));
+        items.add(new Menu("Zutaten verwalten", "manageIngredient.xhtml", false));
     }
-
-    public String show(String item)
+    
+    public String setActive(Menu item)
     {
-        switch (item)
+        setAllInactive();
+        item.setActive(true);
+        return item.getUrl();
+    }
+    
+    private void setAllInactive()
+    {
+        for(int i = 0; i < items.size(); i++)
         {
-            case "Rezept finden":
-                return "findRecipe.xhtml";
-            case "Rezepte verwalten":
-                return "manageRecipe.xhtml";
-            case "Zutaten verwalten":
-                return "manageIngredient.xhtml";
+            items.get(i).setActive(false);
         }
-        return "index.xhtml";
     }
 
-    public String getActive() {
-        return active;
-    }
-
-    public void setActive(String active) {
-        this.active = active;
-    }
-
-    public List<String> getMenuItems() {
+    public List<Menu> getItems() {
         return items;
     }
+
+    public void setItems(List<Menu> items) {
+        this.items = items;
+    }
+
+    
 }

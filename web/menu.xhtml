@@ -4,18 +4,21 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Kitchen Memories</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"></link>
     </h:head>
     <h:body>
         <h4>Willkommen bei Kitchen Memories</h4>
 
         <h:form>
-        <ui:repeat value="#{menuController.menuItems}" var="item">
-            <h:commandLink value="#{item}"
-                           action="#{menuController.show(item)}"
-                           immediate="true"/> <br/>
-        </ui:repeat>
+            <ui:repeat value="#{menuController.items}" var="item">
+                <h:commandLink value="#{item.name}"
+                               action="#{menuController.setActive(item)}"
+                               style="margin-bottom: 5px;"
+                               immediate="true"
+                               styleClass="#{item.active == true ? 'btn btn-primary' : 'btn btn-default'}"
+                               /> <br/>
+            </ui:repeat>
         </h:form>
     </h:body>
 
