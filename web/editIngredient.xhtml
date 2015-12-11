@@ -14,18 +14,18 @@
 
                 <h:form class="form-inline">
                     <div class="form-group">
-                        <h:outputLabel for="newIngredient" 
-                                       value="Neue Zutat"
+                        <h:outputLabel for="editIngredient" 
+                                       value="#{ingredientController.toBeEdit.name} umbenennen"
                                        style="margin-right: 5px;"/>
-                        <h:inputText id="newIngredient"
-                                     value="#{ingredientController.name}"
-                                     f:placeholder="Bitte einen Namen eingeben"
+                        <h:inputText id="editIngredient"
+                                     value="#{ingredientController.toBeEdit.name}"
+                                     f:placeholder="Bitte neuen Namen eingeben"
                                      styleClass="form-control"
                                      style="margin-right: 5px; margin-bottom: 5px;"/>
                     </div>
                     <h:commandButton styleClass="btn btn-default"
                                      value="Hinzufügen"
-                                     action="#{ingredientController.add()}"/>
+                                     action="#{ingredientController.commitEdit()}"/>
                 </h:form> 
 
                 <div class="row">

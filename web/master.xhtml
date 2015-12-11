@@ -11,19 +11,21 @@
     </h:head>
 
     <h:body>
-        <div id="top" class="col-md-12">
-            <ui:include src="banner.xhtml"/>
-        </div>
-            <div class="row">
-                <div id="left" class="col-md-3 col-xs-3">
-                    <ui:insert name="left">
-                        <ui:include src="menu.xhtml"/>
-                    </ui:insert>
-                </div>
-                <div id="content" class="col-md-8">
-                    <br/>
-                    <ui:insert name="content"/>
-                </div>
+        <div class="row">
+            <div id="top" class="col-md-12 col-xs-12 col-ms-12">
+                <ui:include src="banner.xhtml"/>
             </div>
+        </div>
+        <div class="row">
+            <div id="left" class="col-md-3 col-xs-3 col-sm-3">
+                <ui:insert name="left">
+                    <ui:include src="menu.xhtml"/>
+                </ui:insert>
+            </div>
+            <div id="content" class="col-md-9 col-xs-9 col-sm-3">
+                <br/>
+                <ui:insert name="content"/>
+            </div>
+        </div>
     </h:body>
 </html>

@@ -1,6 +1,7 @@
 
 package de.felix.kitchenmemories.presentation;
 
+import de.felix.kitchenmemories.business.IRepository;
 import de.felix.kitchenmemories.business.RecipeService;
 import de.felix.kitchenmemories.model.Ingredient;
 import de.felix.kitchenmemories.model.Recipe;
@@ -21,7 +22,7 @@ public class RecipeController implements Serializable{
     
     
     @EJB
-    private RecipeService service;
+    private IRepository service;
     
     
     

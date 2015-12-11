@@ -9,7 +9,7 @@ package de.felix.kitchenmemories.business;
  *
  * @author Felix Thomas
  */
-class NoSuchIngredientException extends Exception {
+public class NoSuchIngredientException extends Exception {
 
     public NoSuchIngredientException(String msg) {
         super(msg);
