@@ -30,6 +30,7 @@ public class Ingredient_Recipe {
     private Long recipeId;
     private double amount;
     private String unit;
+    private double numberOfPeople;
     
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "INGREDIENTID", referencedColumnName = "ID")
@@ -38,6 +39,15 @@ public class Ingredient_Recipe {
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "RECIPEID", referencedColumnName = "ID")
     private Recipe recipe;
+
+    
+    public double getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public void setNumberOfPeople(double numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
+    }
 
     public Long getIngredientId() {
         return ingredientId;

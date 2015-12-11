@@ -2,10 +2,12 @@ package de.felix.kitchenmemories.presentation;
 
 import de.felix.kitchenmemories.business.IRepository;
 import de.felix.kitchenmemories.business.IngredientService;
+import de.felix.kitchenmemories.business.NoSuchIngredientException;
 import de.felix.kitchenmemories.model.Ingredient;
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.PostConstruct;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -18,16 +20,21 @@ public class IngredientController implements Serializable {
     private Ingredient toBeEdit;
 
     @EJB
-    private IRepository service;
+    private IngredientService service;
     
 
     public List<Ingredient> getIngredients() {
         return service.findAll();
     }
 
-    public String add() {
+    public void add() {
         service.create(new Ingredient(name));
-        return "manageIngredient.xhtml";
+        try {
+            System.out.println("Added: " + service.findByName(name).getName());
+        } catch (NoSuchIngredientException ex) {
+            Logger.getLogger(IngredientController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     public String edit(Ingredient ingredient) {

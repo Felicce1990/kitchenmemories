@@ -25,12 +25,10 @@ public class MenuController implements Serializable
         items.add(new Menu("Rezept finden", "findRecipe.xhtml", false));
         items.add(new Menu("Rezepte verwalten", "manageRecipe.xhtml", false));
         items.add(new Menu("Zutaten verwalten", "manageIngredient.xhtml", false));
-        System.out.println("MenuController aufgerufen.");
     }
     
     public String setActive(Menu item)
     {
-        System.out.println("Call: setActive");
         setAllInactive();
         item.setActive(true);
         return item.getUrl();
@@ -38,7 +36,6 @@ public class MenuController implements Serializable
     
     private void setAllInactive()
     {
-        System.out.println("Call: setAllInactive()");
         for(int i = 0; i < items.size(); i++)
         {
             items.get(i).setActive(false);
@@ -46,7 +43,6 @@ public class MenuController implements Serializable
     }
 
     public List<Menu> getItems() {
-        System.out.println("Call getItems");
         return items;
     }
 

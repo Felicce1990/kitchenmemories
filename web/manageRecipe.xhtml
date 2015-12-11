@@ -1,17 +1,82 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-    
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
     <body>
-        
+
         <ui:composition template="master.xhtml">
-            
+
             <ui:define name="content">
-                Test
+                <h3>Neues Rezept erstellen:</h3>
+                <!-- NAMEN, BESCHREIBUNG, BILD?, ZUTATEN, MENGE, EINHEIT, NUMBEROFPEOPLE -->
+                <h:form>
+                    <div class="form-group">
+                        <h:outputLabel for="nameRecipe" value="Name:"/>
+                        <h:inputText  styleClass="form-control" 
+                                      value="#{recipeController.name}"
+                                      id="nameRecipe" 
+                                      pt:placeholder="Namen eingeben"/>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel for="descriptionRecipe" value="Beschreibung"/>
+                        <h:inputTextarea id="descriptionRecipe"
+                                         styleClass="form-control"
+                                         value="#{recipeController.description}"
+                                         pt:placeholder="Bitte eine Beschreibung eingeben"/>
+                    </div>
+                    <hr/>
+                    <h:form>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <!-- Anzahl eingeben --> 
+                                <div class="form-group">
+                                    <h:outputLabel for="amountRecipe" value="Anzahl:"/>
+                                    <h:inputText  styleClass="form-control" 
+                                                  value="#{recipeController.amount}"
+                                                  id="amountRecipe" 
+                                                  pt:placeholder="Wert angeben"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <!-- Einheit eingeben --> 
+                                <div class="form-group">
+                                    <h:outputLabel for="unitRecipe" value="Einheit:"/>
+                                    <h:inputText  styleClass="form-control" 
+                                                  value="#{recipeController.unit}"
+                                                  id="unitRecipe" 
+                                                  pt:placeholder="Einheit angeben"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <!-- Zutat wählen --> 
+                                <h:selectOneMenu styleClass="bootstrap-select" id="menuRecipe"  value="#{recipeController.selectedIngredient}">
+                                    <f:selectItems  value="#{recipeController.mappedIngredients}" />
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="col-md-3">
+                                <!-- Zutat zum Rezept hinzufügen --> 
+                            </div>
+                        </div>
+                    </h:form>
+                    <hr/>
+
+                    <!-- Liste mit allen hinzugefügten Zutaten anzeigen, mit möglichkeit zum bearbeiten und löschen -->
+
+
+                    <h:commandButton styleClass="btn btn-default"
+                                     value="Hinzufügen"
+                                     action="manageRecipe.xhtml"/>
+
+                </h:form>
+
+
             </ui:define>
 
         </ui:composition>
-        
+
     </body>
 </html>

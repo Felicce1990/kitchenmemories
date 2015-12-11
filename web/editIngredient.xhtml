@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
     <body>
 
@@ -19,7 +20,8 @@
                                        style="margin-right: 5px;"/>
                         <h:inputText id="editIngredient"
                                      value="#{ingredientController.toBeEdit.name}"
-                                     f:placeholder="Bitte neuen Namen eingeben"
+                                     required="true"
+                                     pt:placeholder="Bitte neuen Namen eingeben"
                                      styleClass="form-control"
                                      style="margin-right: 5px; margin-bottom: 5px;"/>
                     </div>

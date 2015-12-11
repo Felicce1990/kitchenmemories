@@ -9,39 +9,33 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateless
-public class IngredientService implements IRepository<Ingredient>
+public class IngredientService
 {
     
     @PersistenceContext
     private EntityManager em;
     
 
-    @Override
     public void create(Ingredient entity) 
     {
         em.persist(entity);
     }
 
-    @Override
     public void update(Ingredient entity) 
     {
         em.merge(entity);
     }
 
-    @Override
     public void remove(Ingredient entity) 
     {
         em.remove(em.merge(entity));
     }
 
-    @Override
     public Ingredient find(Object id) 
     {
         return em.find(Ingredient.class, id);
     }
 
-
-    @Override
     public Ingredient findByName(String name) throws NoSuchIngredientException {
         List<Ingredient> resultList = em.createNamedQuery(Ingredient.FIND_BY_NAME, Ingredient.class)
                 .setParameter("name", name)
@@ -55,12 +49,7 @@ public class IngredientService implements IRepository<Ingredient>
         throw new NoSuchIngredientException("Ingredient " + name + " doesn't exist.");    
     }
 
-    @Override
     public List<Ingredient> findAll() {
         return em.createNamedQuery(Ingredient.FIND_ALL, Ingredient.class).getResultList();
-    }
-
-
-    
-            
+    }          
 }

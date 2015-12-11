@@ -1,52 +1,56 @@
-
 package de.felix.kitchenmemories.presentation;
 
-import de.felix.kitchenmemories.business.IRepository;
+import de.felix.kitchenmemories.business.IngredientService;
 import de.felix.kitchenmemories.business.RecipeService;
 import de.felix.kitchenmemories.model.Ingredient;
-import de.felix.kitchenmemories.model.Recipe;
 import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 @Named
 @SessionScoped
-public class RecipeController implements Serializable{
-    
-    private String recipeName;
-    private String ingredientName;
+public class RecipeController implements Serializable {
+
+    private String name;
+    private String description;
+    private List<Ingredient> ingredients;
+    private String selectedIngredient;
     private double amount;
-    private Recipe currentRecipe;
-    private Ingredient currentIngredient;
-    
+    private String unit;
+    private double amountOfPeople;
+
+    private Map<String, Object> mappedIngredients;
+
+    @EJB
+    private RecipeService service;
     
     @EJB
-    private IRepository service;
-    
-    
-    
-    
-    public void doActionWithName()
-    {
-        System.out.println("Eingabe war: " + recipeName);
+    private IngredientService iService;
+
+    public Map<String, Object> getMappedIngredients() {
+        
+        List<Ingredient> list = iService.findAll();
+        mappedIngredients = new LinkedHashMap<String, Object>();
+
+        for (int i = 0; i < list.size(); i++) {
+            mappedIngredients.put(list.get(i).getName(), list.get(i).getName());
+        }
+        return mappedIngredients;
+
     }
 
-    public String getRecipeName() {
-        return recipeName;
+    public String getSelectedIngredient() {
+        return selectedIngredient;
     }
 
-    public void setRecipeName(String recipeName) {
-        this.recipeName = recipeName;
+    public void setSelectedIngredient(String selectedIngredient) {
+        this.selectedIngredient = selectedIngredient;
     }
 
-    public String getIngredientName() {
-        return ingredientName;
-    }
-
-    public void setIngredientName(String ingredientName) {
-        this.ingredientName = ingredientName;
-    }
 
     public double getAmount() {
         return amount;
@@ -56,19 +60,44 @@ public class RecipeController implements Serializable{
         this.amount = amount;
     }
 
-    public Recipe getCurrentRecipe() {
-        return currentRecipe;
+    public String getName() {
+        return name;
     }
 
-    public void setCurrentRecipe(Recipe currentRecipe) {
-        this.currentRecipe = currentRecipe;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Ingredient getCurrentIngredient() {
-        return currentIngredient;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCurrentIngredient(Ingredient currentIngredient) {
-        this.currentIngredient = currentIngredient;
-    }   
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> Ingredients) {
+        this.ingredients = Ingredients;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public double getAmountOfPeople() {
+        return amountOfPeople;
+    }
+
+    public void setAmountOfPeople(double amountOfPeople) {
+        this.amountOfPeople = amountOfPeople;
+    }
+
 }
