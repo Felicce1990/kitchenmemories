@@ -35,6 +35,15 @@ public class IngredientService
     {
         return em.find(Ingredient.class, id);
     }
+    
+    public List<Ingredient> findManyByName(String name) throws NoSuchIngredientException
+    {
+        List<Ingredient> resultList = em.createNamedQuery(Ingredient.FIND_BY_CONTAINS_NAME, Ingredient.class)
+                .setParameter(1, "%" + name + "%")
+                .getResultList();
+        return resultList;
+        
+    }
 
     public Ingredient findByName(String name) throws NoSuchIngredientException {
         List<Ingredient> resultList = em.createNamedQuery(Ingredient.FIND_BY_NAME, Ingredient.class)
@@ -49,6 +58,13 @@ public class IngredientService
         throw new NoSuchIngredientException("Ingredient " + name + " doesn't exist.");    
     }
 
+    public List<Ingredient> getFirstTwenty() {
+        
+            return em.createNamedQuery(Ingredient.FIND_ALL, Ingredient.class)
+                    .setMaxResults(20)
+                    .getResultList();
+    }
+    
     public List<Ingredient> findAll() {
         return em.createNamedQuery(Ingredient.FIND_ALL, Ingredient.class).getResultList();
     }          

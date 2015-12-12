@@ -1,6 +1,7 @@
 
 package de.felix.kitchenmemories.business;
 
+import de.felix.kitchenmemories.model.Ingredient;
 import de.felix.kitchenmemories.model.Recipe;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -47,6 +48,13 @@ public class RecipeService {
             return resultList.get(0);
         }
         throw new NoSuchRecipeException("Recipe " + name + " doesn't exist.");
+    }
+    
+    public List<Recipe> getFirstTwenty() {
+        
+            return em.createNamedQuery(Recipe.FIND_ALL, Recipe.class)
+                    .setMaxResults(20)
+                    .getResultList();
     }
     
     public List<Recipe> findAll()

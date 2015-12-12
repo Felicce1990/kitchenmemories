@@ -14,14 +14,15 @@ import javax.persistence.OneToMany;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = Ingredient.FIND_ALL, query = "select i from Ingredient i"),
-    @NamedQuery(name = Ingredient.FIND_BY_NAME, query = "select i from Ingredient i where i.name=:name")
+    @NamedQuery(name = Ingredient.FIND_ALL, query = "select i from Ingredient i order by i.name asc"),
+    @NamedQuery(name = Ingredient.FIND_BY_NAME, query = "select i from Ingredient i where i.name=:name"),
+    @NamedQuery(name = Ingredient.FIND_BY_CONTAINS_NAME, query = "select i from Ingredient i where lower(i.name) LIKE ?1 order by i.name asc")
 })
 public class Ingredient implements Serializable {
 
     public static final String FIND_ALL = "Ingredient.findAll";
     public static final String FIND_BY_NAME = "Ingredient.findByName";
-    
+    public static final String FIND_BY_CONTAINS_NAME = "Ingredient.findByContainsName";
     
     
     @Id

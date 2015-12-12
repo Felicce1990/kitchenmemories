@@ -44,6 +44,7 @@
                             <div class="col-md-3">
                                 <!-- Einheit eingeben --> 
                                 <div class="form-group">
+
                                     <h:outputLabel for="unitRecipe" value="Einheit:"/>
                                     <h:inputText  styleClass="form-control" 
                                                   value="#{recipeController.unit}"
@@ -52,13 +53,47 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
+                                
+                                <!-- Liste Filtern -->
+                                
+                                <div class="form-group has-feedback">
+                                    <h:outputLabel for="searchIngredients"
+                                                   value="Filtern"
+                                                   styleClass="control-label"/>
+                                    <h:inputText id="searchIngredients"
+                                                 value="#{ingredientController.search}"
+                                                 pt:placeholder="Nach Zutat suchen"
+                                                 styleClass="form-control">
+                                        <f:ajax event="keyup"
+                                                
+                                                render="ingredientTable"
+                                                execute="@this"
+                                                delay="500"/>
+                                    </h:inputText>
+                                        <i class="glyphicon glyphicon-search form-control-feedback"></i>
+                                </div>
                                 <!-- Zutat wählen --> 
-                                <h:selectOneMenu styleClass="bootstrap-select" id="menuRecipe"  value="#{recipeController.selectedIngredient}">
-                                    <f:selectItems  value="#{recipeController.mappedIngredients}" />
-                                </h:selectOneMenu>
+                                <h:dataTable value="#{ingredientController.ingredientsByName}" 
+                                             var="item"
+                                             id="ingredientTable"
+                                             styleClass="table table-hover">
+                                        <h:column>
+                                            <f:facet name="header">Zutat</f:facet>
+                                                #{item.name}
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header"></f:facet>
+                                            <h:selectOneRadio value="#{ingredientController.radioName}">
+                                                <f:selectItem/>   
+                                            </h:selectOneRadio>
+                                        </h:column>
+                                    </h:dataTable>
+
                             </div>
                             <div class="col-md-3">
-                                <!-- Zutat zum Rezept hinzufügen --> 
+                                <h:commandButton styleClass="btn btn-success"
+                                     value="Hinzufügen"
+                                     action="manageRecipe.xhtml"/> 
                             </div>
                         </div>
                     </h:form>
