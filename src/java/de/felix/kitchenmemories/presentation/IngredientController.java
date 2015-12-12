@@ -1,6 +1,5 @@
 package de.felix.kitchenmemories.presentation;
 
-import de.felix.kitchenmemories.business.IRepository;
 import de.felix.kitchenmemories.business.IngredientService;
 import de.felix.kitchenmemories.business.NoSuchIngredientException;
 import de.felix.kitchenmemories.model.Ingredient;
@@ -11,7 +10,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.component.html.HtmlDataTable;
 import javax.inject.Named;
 
 @Named
@@ -23,6 +22,7 @@ public class IngredientController implements Serializable {
     private String radioName;
     private String search;
     private List<Ingredient> filteredIngredients;
+    private HtmlDataTable dataTable;
 
     @EJB
     private IngredientService service;
@@ -36,10 +36,8 @@ public class IngredientController implements Serializable {
     
     public void testAjax()
     {
-        System.out.println("### Input: " + search);
+        System.out.println("### Klick");
     }
-    
-    
     
     public List<Ingredient> getIngredientsByName() throws NoSuchIngredientException
     {
@@ -108,6 +106,14 @@ public class IngredientController implements Serializable {
 
     public void setRadioName(String radioName) {
         this.radioName = radioName;
+    }
+
+    public HtmlDataTable getDataTable() {
+        return dataTable;
+    }
+
+    public void setDataTable(HtmlDataTable dataTable) {
+        this.dataTable = dataTable;
     }
 
     public String getSearch() {

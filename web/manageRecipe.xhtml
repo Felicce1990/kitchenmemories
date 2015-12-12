@@ -38,6 +38,7 @@
                                     <h:inputText  styleClass="form-control" 
                                                   value="#{recipeController.amount}"
                                                   id="amountRecipe" 
+                                                  required="true"
                                                   pt:placeholder="Wert angeben"/>
                                 </div>
                             </div>
@@ -49,13 +50,14 @@
                                     <h:inputText  styleClass="form-control" 
                                                   value="#{recipeController.unit}"
                                                   id="unitRecipe" 
+                                                  required="true"
                                                   pt:placeholder="Einheit angeben"/>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                
+
                                 <!-- Liste Filtern -->
-                                
+
                                 <div class="form-group has-feedback">
                                     <h:outputLabel for="searchIngredients"
                                                    value="Filtern"
@@ -65,35 +67,32 @@
                                                  pt:placeholder="Nach Zutat suchen"
                                                  styleClass="form-control">
                                         <f:ajax event="keyup"
-                                                
+
                                                 render="ingredientTable"
                                                 execute="@this"
                                                 delay="500"/>
                                     </h:inputText>
-                                        <i class="glyphicon glyphicon-search form-control-feedback"></i>
+                                    <i class="glyphicon glyphicon-search form-control-feedback"></i>
                                 </div>
                                 <!-- Zutat wählen --> 
-                                <h:dataTable value="#{ingredientController.ingredientsByName}" 
-                                             var="item"
-                                             id="ingredientTable"
-                                             styleClass="table table-hover">
-                                        <h:column>
-                                            <f:facet name="header">Zutat</f:facet>
-                                                #{item.name}
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header"></f:facet>
-                                            <h:selectOneRadio value="#{ingredientController.radioName}">
-                                                <f:selectItem/>   
-                                            </h:selectOneRadio>
-                                        </h:column>
-                                    </h:dataTable>
+
+                                
+                                <h:selectOneMenu value="#{recipeController.selectedIngredient}"
+                                                 id="ingredientTable"
+                                                 styleClass="form-control">
+                                    <f:selectItems value="#{ingredientController.ingredientsByName}"
+                                                   var="item"
+                                                   itemValue="#{item.name}"
+                                                   itemLabel="#{item.name}"/>
+                                </h:selectOneMenu>
+                                
+                                
 
                             </div>
                             <div class="col-md-3">
                                 <h:commandButton styleClass="btn btn-success"
-                                     value="Hinzufügen"
-                                     action="manageRecipe.xhtml"/> 
+                                                 value="Hinzufügen"
+                                                 action="#{recipeController.printIngredient()}"/> 
                             </div>
                         </div>
                     </h:form>

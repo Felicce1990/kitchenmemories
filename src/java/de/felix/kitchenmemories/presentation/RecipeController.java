@@ -31,6 +31,13 @@ public class RecipeController implements Serializable {
     @EJB
     private IngredientService iService;
 
+    public void printIngredient()
+    {
+        System.out.println("### amount: " + amount);
+        System.out.println("### unit: " + unit);
+        System.out.println("### ingredient: " + selectedIngredient);
+    }
+    
     public Map<String, Object> getMappedIngredients() {
         
         List<Ingredient> list = iService.findAll();
