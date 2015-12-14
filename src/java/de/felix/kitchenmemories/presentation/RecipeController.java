@@ -47,7 +47,6 @@ public class RecipeController implements Serializable {
             mappedIngredients.put(list.get(i).getName(), list.get(i).getName());
         }
         return mappedIngredients;
-
     }
 
     public String getSelectedIngredient() {

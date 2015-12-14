@@ -14,6 +14,18 @@ public class RecipeService {
     @PersistenceContext
     private EntityManager em;
     
+    public void addIngredient(Recipe recipe, Ingredient i, double amount, String unit)
+    {
+        recipe = em.merge(recipe);
+        recipe.addIngredient(i, amount, unit);
+    }
+    
+    public void removeIngredient(Recipe recipe, Ingredient i)
+    {
+        recipe = em.merge(recipe);
+        recipe.removeIngredient(i);
+    }
+    
     public void create(Recipe recipe)
     {
         em.persist(recipe);
@@ -26,7 +38,7 @@ public class RecipeService {
     
     public void remove(Recipe recipe)
     {
-        em.remove(recipe);
+        em.remove(em.merge(recipe));
     }
     
     public Recipe find(Object id)

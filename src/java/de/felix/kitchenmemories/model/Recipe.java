@@ -47,7 +47,15 @@ public class Recipe implements Serializable {
         this.ingredients.add(ir);
         i.getRecipes().add(ir);
     }
+    
+    public void removeIngredient(Ingredient i)
+    {
+        ingredients.remove(i);
+    }
 
+    public List<Ingredient_Recipe> getIngredients() {
+        return ingredients;
+    }
 
     public String getDescription() {
         return description;

@@ -5,8 +5,6 @@ import de.felix.kitchenmemories.business.NoSuchIngredientException;
 import de.felix.kitchenmemories.model.Ingredient;
 import java.io.Serializable;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -64,15 +62,29 @@ public class IngredientController implements Serializable {
     {
         return service.getFirstTwenty();
     }
+    
+        private boolean contains(String ingredientName)
+    {
+            try {
+                service.findByName(ingredientName);
+                return true;
+            } catch (NoSuchIngredientException ex) {
+                return false;
+            }
+    }
 
     public void add() {
-        service.create(new Ingredient(name));
-        try {
-            System.out.println("Added: " + service.findByName(name).getName());
-        } catch (NoSuchIngredientException ex) {
-            Logger.getLogger(IngredientController.class.getName()).log(Level.SEVERE, null, ex);
+        if(!contains(name))
+        {
+            Ingredient i = new Ingredient();
+            i.setName(name);
+            service.create(i);
+            name="";
+        } else 
+        {
+            name = "";
+            System.out.println("### Ingredient already added!");
         }
-        
     }
 
     public String edit(Ingredient ingredient) {
@@ -84,9 +96,9 @@ public class IngredientController implements Serializable {
     {
         toBeEdit.setName(name);
         service.update(toBeEdit);
+        name = "";
         return "manageIngredient.xhtml";
-    }
-            
+    }   
 
     public void delete(Ingredient ingredient) {
         service.remove(ingredient);
