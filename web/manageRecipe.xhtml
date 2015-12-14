@@ -13,7 +13,7 @@
             <ui:define name="content">
                 <h3>Neues Rezept erstellen:</h3>
                 <!-- NAMEN, BESCHREIBUNG, BILD?, ZUTATEN, MENGE, EINHEIT, NUMBEROFPEOPLE -->
-                <h:form>
+                <h:form id="completeForm"> 
                     <div class="form-group">
                         <h:outputLabel for="nameRecipe" value="Name:"/>
                         <h:inputText  styleClass="form-control" 
@@ -29,7 +29,7 @@
                                          pt:placeholder="Bitte eine Beschreibung eingeben"/>
                     </div>
                     <hr/>
-                    <h:form>
+                    <h:form id="ingredientForm">
                         <div class="row">
                             <div class="col-md-3">
                                 <!-- Anzahl eingeben --> 
@@ -68,7 +68,7 @@
                                                  styleClass="form-control">
                                         <f:ajax event="keyup"
 
-                                                render="ingredientTable"
+                                                render="ingredientList"
                                                 execute="@this"
                                                 delay="500"/>
                                     </h:inputText>
@@ -76,26 +76,66 @@
                                 </div>
                                 <!-- Zutat wählen --> 
 
-                                
+
                                 <h:selectOneMenu value="#{recipeController.selectedIngredient}"
-                                                 id="ingredientTable"
+                                                 id="ingredientList"
                                                  styleClass="form-control">
                                     <f:selectItems value="#{ingredientController.ingredientsByName}"
                                                    var="item"
                                                    itemValue="#{item.name}"
                                                    itemLabel="#{item.name}"/>
                                 </h:selectOneMenu>
-                                
-                                
+
+
 
                             </div>
                             <div class="col-md-3">
                                 <h:commandButton styleClass="btn btn-success"
                                                  value="Hinzufügen"
-                                                 action="#{recipeController.printIngredient()}"/> 
+                                                 action="#{recipeController.collectIngredients()}">
+                                    <f:ajax event="action"
+                                            execute="amountRecipe unitRecipe ingredientList"
+                                            render="@all"/>
+                                </h:commandButton> 
                             </div>
                         </div>
                     </h:form>
+                    <hr/>
+                    <h4>Dieses Rezept beinhaltet folgende Zutaten:</h4>
+                    <h:form id="dataTableForm">
+                    <h:dataTable value="#{recipeController.ingredient_Recipes}" var="item"
+                                 styleClass="table"
+                                 id="addedIngredientTable">
+                        <h:column>
+                            <f:facet name="header">Anzahl</f:facet>
+                                #{item.amount}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Einheit</f:facet>
+                                #{item.unit}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Zutat</f:facet>
+                                #{item.ingredient.name}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Löschen</f:facet>
+                                <h:commandLink
+                                    action="#{recipeController.removeIngredientFromList(item)}"
+                                    styleClass="">
+                                    <span style="color: red;" class="glyphicon glyphicon-remove"></span>
+                                    <f:ajax event="action"
+                                            render="@all"
+                                            execute="@this"/>
+                                </h:commandLink>
+                        </h:column>
+                    </h:dataTable>
+                    </h:form>
+
+                    <hr/>
+
+
                     <hr/>
 
                     <!-- Liste mit allen hinzugefügten Zutaten anzeigen, mit möglichkeit zum bearbeiten und löschen -->

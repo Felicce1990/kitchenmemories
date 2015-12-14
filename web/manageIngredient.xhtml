@@ -35,30 +35,30 @@
                         <h:dataTable value="#{ingredientController.ingredients}" var="item"
                                      styleClass="table"
                                      >
-                                <h:column>
-                                    <f:facet name="header">Name</f:facet>
-                                        #{item.name}
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">Bearbeiten</f:facet>
-                                    <h:form>
+                            <h:column>
+                                <f:facet name="header">Name</f:facet>
+                                    #{item.name}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Bearbeiten</f:facet>
+                                <h:form>
                                     <h:commandLink
                                         action="#{ingredientController.edit(item)}"
                                         styleClass="">
                                         <span style="color: orange;" class="glyphicon glyphicon-pencil"></span>
                                     </h:commandLink>
-                                    </h:form>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">Löschen</f:facet>
-                                    <h:form>
+                                </h:form>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Löschen</f:facet>
+                                <h:form>
                                     <h:commandLink
                                         action="#{ingredientController.delete(item)}"
                                         styleClass="">
                                         <span style="color: red;" class="glyphicon glyphicon-remove"></span>
                                     </h:commandLink>
-                                    </h:form>
-                                </h:column>
+                                </h:form>
+                            </h:column>
                         </h:dataTable>
                     </div>
                 </div>
